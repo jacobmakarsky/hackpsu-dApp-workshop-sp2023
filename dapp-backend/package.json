@@ -1,0 +1,26 @@
+{
+  "name": "dapp-backend",
+  "version": "1.0.0",
+  "description": "eth contract backend for hackpsu dapp workshop spring 2023",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jacobmakarsky/hackpsu-dapp-workshop-sp2023.git"
+  },
+  "author": "jacobmakarsky",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jacobmakarsky/hackpsu-dapp-workshop-sp2023/issues"
+  },
+  "homepage": "https://github.com/jacobmakarsky/hackpsu-dapp-workshop-sp2023#readme",
+  "devDependencies": {
+    "@nomicfoundation/hardhat-toolbox": "^2.0.2",
+    "hardhat": "^2.13.0"
+  },
+  "dependencies": {
+    "@openzeppelin/contracts": "^4.8.2"
+  }
+}
