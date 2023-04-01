@@ -5,6 +5,7 @@ import type { NextPage } from "next";
 import Head from "next/head";
 import styles from "../styles/Home.module.css";
 import { useEffect, useState } from "react";
+import { ethers } from "ethers";
 
 // just the minting part of the ABI is needed
 const contractABI = [
@@ -30,13 +31,17 @@ const Home: NextPage = () => {
   // needed for conditional rendering of components
   const [isSSR, setIsSSR] = useState(true);
 
+  // get the user's wallet address from wagmi
   const { address } = useAccount();
 
+  // usePrepareContractWrite is a hook that prepares the contract write
   const { config } = usePrepareContractWrite({
-    address: "0xecb504d39723b0be0e3a9aa33d646642d1051ee1",
+    address: "0x5FbDB2315678afecb367f032d93F642f64180aa3",
     abi: contractABI,
     functionName: "printLionCash",
+    args: [ethers.utils.parseEther("1000")],
   });
+  // useContractWrite is a hook that actually writes to the contract
   const { data, isLoading, isSuccess, write } = useContractWrite(config);
 
   // this is a hook that runs once when the page loads in
@@ -44,6 +49,7 @@ const Home: NextPage = () => {
     setIsSSR(false);
   }, []);
 
+  // this is the actual JSX that gets rendered
   return (
     <div className={styles.container}>
       <Head>

@@ -14,14 +14,16 @@ async function main() {
   await lc.deployed();
 
   // print the address of the deployed contract
-  console.log(`PSU stimulus deployed to ${lc.address}`);
+  console.log(`LionCash deployed to ${lc.address}`);
 
   // print LionCash balance of the deployer
   // but format the 18 decimal number to a human readable number using ethers package
   console.log(
-    "Deployer has ",
+    "Deployer address",
+    deployer.address,
+    "has",
     ethers.utils.formatEther(await lc.balanceOf(deployer.address)),
-    " LionCash"
+    "LionCash"
   );
 }
 
