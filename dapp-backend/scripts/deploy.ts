@@ -1,18 +1,27 @@
 import { ethers } from "hardhat";
 
 async function main() {
-  const currentTimestampInSeconds = Math.round(Date.now() / 1000);
-  const unlockTime = currentTimestampInSeconds + 60;
+  // get the deployer
+  const [deployer] = await ethers.getSigners();
 
-  const lockedAmount = ethers.utils.parseEther("0.001");
+  // get the contract from hardhat ethers package
+  const LionCash = await ethers.getContractFactory("LionCash");
 
-  const Lock = await ethers.getContractFactory("Lock");
-  const lock = await Lock.deploy(unlockTime, { value: lockedAmount });
+  // ensure the imported deployer wallet from the hardhat ethers package is deploying the contract
+  const lc = await LionCash.connect(deployer).deploy();
 
-  await lock.deployed();
+  // wait for the contract to be deployed
+  await lc.deployed();
 
+  // print the address of the deployed contract
+  console.log(`PSU stimulus deployed to ${lc.address}`);
+
+  // print LionCash balance of the deployer
+  // but format the 18 decimal number to a human readable number using ethers package
   console.log(
-    `Lock with ${ethers.utils.formatEther(lockedAmount)}ETH and unlock timestamp ${unlockTime} deployed to ${lock.address}`
+    "Deployer has ",
+    ethers.utils.formatEther(await lc.balanceOf(deployer.address)),
+    " LionCash"
   );
 }
 
